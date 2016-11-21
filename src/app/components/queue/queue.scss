@@ -1,0 +1,42 @@
+.badge-button {
+  &:hover {
+    background-color: #555555;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.badge-error {
+  background-color: #b94a48;
+  &.badge-button:hover {
+    background-color: #953b39;
+  }
+}
+
+.badge-warning {
+  background-color: #f89406;
+  &.badge-button:hover {
+    background-color: #c67605;
+  }
+}
+
+.badge-success {
+  background-color: #468847;
+  &.badge-button:hover {
+    background-color: #356635;
+  }
+}
+
+.badge-info {
+  background-color: #3a87ad;
+  &.badge-button:hover {
+    background-color: #2d6987;
+  }
+}
+
+.badge-inverse {
+  background-color: #333333;
+  &.badge-button:hover {
+    background-color: #1a1a1a;
+  }
+}
