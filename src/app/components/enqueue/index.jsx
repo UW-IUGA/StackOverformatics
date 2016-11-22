@@ -6,7 +6,8 @@ class Enqueue extends Component {
 		super(props);
 
 		this.state = {
-			classes: []
+			classes: [],
+			rooms: []
 		};
 
 		firebase.database().ref('classes').on('value', (snapshot) => {
@@ -19,6 +20,16 @@ class Enqueue extends Component {
 				classes: classes
 			});
 		});
+		firebase.database().ref('rooms').on('value', (snapshot) => {
+			var rooms = [];
+			snapshot.forEach((innerSnapshot) => {
+				var roomData = innerSnapshot.val();
+				rooms.push(<option key={roomData.value} value={roomData.value}>{roomData.name}</option>);
+			})
+			this.setState({
+				rooms: rooms
+			});
+		});
 	}
 
 	submitForm(e) {
@@ -26,6 +37,7 @@ class Enqueue extends Component {
 		var data = {
 			name: this.refs.name.value,
 			class: this.refs.class.value,
+			room: this.refs.room.value,
 			timestamp: firebase.database.ServerValue.TIMESTAMP
 		}
 		firebase.database().ref("queue").push(data);
@@ -54,6 +66,19 @@ class Enqueue extends Component {
 								) : null
 							}
 							{this.state.classes}
+						</select>
+					</div>
+
+					<div className="form-group">
+						<label htmlFor="room">Room</label>
+
+						<select name="room" ref="room" className="form-control">
+							{
+								this.state.rooms.length > 1 ? (
+									<option value="">-- Select One --</option>
+								) : null
+							}
+							{this.state.rooms}
 						</select>
 					</div>
 

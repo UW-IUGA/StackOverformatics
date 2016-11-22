@@ -18,6 +18,7 @@ class Queue extends Component {
 				queue.push(
 					<li key={queuer.name + queuer.timestamp} className="list-group-item">
 						<span className="badge badge-button badge-error" onClick={() => this.dequeue(innerSnapshot)}>X</span>
+						<span className="badge">{queuer.room}</span>
 						<span className="badge">{queuer.class}</span>
 						{queuer.name}
 					</li>
