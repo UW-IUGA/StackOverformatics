@@ -14,6 +14,7 @@ class Enqueue extends Component {
 			var classes = [];
 			snapshot.forEach((innerSnapshot) => {
 				var classData = innerSnapshot.val();
+				if (!classData.active) return;
 				classes.push(<option key={classData.value} value={classData.value}>{classData.name}</option>);
 			})
 			this.setState({
@@ -24,6 +25,7 @@ class Enqueue extends Component {
 			var rooms = [];
 			snapshot.forEach((innerSnapshot) => {
 				var roomData = innerSnapshot.val();
+				if (!roomData.active) return;
 				rooms.push(<option key={roomData.value} value={roomData.value}>{roomData.name}</option>);
 			})
 			this.setState({
