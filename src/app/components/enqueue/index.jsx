@@ -40,6 +40,7 @@ class Enqueue extends Component {
 			name: this.refs.name.value,
 			class: this.refs.class.value,
 			room: this.refs.room.value,
+			sd: this.refs.sd.value,
 			timestamp: firebase.database.ServerValue.TIMESTAMP
 		}
 		firebase.database().ref("queue").push(data);
@@ -56,6 +57,11 @@ class Enqueue extends Component {
 					<div className="form-group">
 						<label htmlFor="name">Name</label>
 						<input type="text" className="form-control" name="name" ref="name" placeholder="John Appleseed" />
+					</div>
+
+					<div className="form-group">
+						<label htmlFor="sd">Short Description</label>
+						<input type="text" className="form-control" name="sd" ref="sd" placeholder="(React, Firebase, etc)" />
 					</div>
 
 					<div className="form-group">

@@ -20,7 +20,8 @@ class Queue extends Component {
 						<span className="badge badge-button badge-error" onClick={() => this.dequeue(innerSnapshot)}>X</span>
 						<span className="badge">{queuer.room}</span>
 						<span className="badge">{queuer.class}</span>
-						{queuer.name}
+						<h5>{queuer.name}</h5>
+						<p>{queuer.sd}</p>
 					</li>
 				);
 			})
