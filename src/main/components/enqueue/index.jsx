@@ -10,7 +10,12 @@ class Enqueue extends Component {
 			rooms: []
 		};
 
-		firebase.database().ref('classes').on('value', (snapshot) => {
+		this.firebaseRefs = [];
+	}
+
+	componentWillMount() {
+		var classesReferance = firebase.database().ref('classes');
+		classesReferance.on('value', (snapshot) => {
 			var classes = [];
 			snapshot.forEach((innerSnapshot) => {
 				var classData = innerSnapshot.val();
@@ -21,7 +26,10 @@ class Enqueue extends Component {
 				classes: classes
 			});
 		});
-		firebase.database().ref('rooms').on('value', (snapshot) => {
+		this.firebaseRefs.push(() => classesReferance.off());
+
+		var roomsReferance = firebase.database().ref('rooms');
+		roomsReferance.on('value', (snapshot) => {
 			var rooms = [];
 			snapshot.forEach((innerSnapshot) => {
 				var roomData = innerSnapshot.val();
@@ -32,17 +40,26 @@ class Enqueue extends Component {
 				rooms: rooms
 			});
 		});
+		this.firebaseRefs.push(() => roomsReferance.off());
+
+	}
+
+	componentWillUnmount() {
+		console.log("UnMount EnQueue", this);
+		this.firebaseRefs.forEach((ref) => ref());
 	}
 
 	submitForm(e) {
 		e.preventDefault();
 		var data = {
-			name: this.refs.name.value,
+			name: this.props.user.displayName,
+			uid: this.props.user.uid,
 			class: this.refs.class.value,
 			room: this.refs.room.value,
 			sd: this.refs.sd.value,
 			timestamp: firebase.database.ServerValue.TIMESTAMP
 		}
+		console.log(data);
 		firebase.database().ref("queue").push(data);
 	}
 
@@ -53,11 +70,6 @@ class Enqueue extends Component {
 
 				<form role="form" onSubmit={(e) => this.submitForm(e)}>
 					<legend></legend>
-
-					<div className="form-group">
-						<label htmlFor="name">Name</label>
-						<input type="text" className="form-control" name="name" ref="name" placeholder="John Appleseed" />
-					</div>
 
 					<div className="form-group">
 						<label htmlFor="sd">Short Description</label>

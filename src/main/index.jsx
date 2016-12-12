@@ -3,10 +3,22 @@ import React, { Component } from 'react';
 import Queue from "./components/queue";
 import Enqueue from "./components/enqueue";
 
-import './app.scss';
+import './main.scss';
 
-class App extends Component {
+import firebase from 'firebase';
+
+class Main extends Component {
+
+
+	componentWillMount(transition) {
+		if (this.props.user == null) {
+			this.props.router.push("/login");
+		}
+	}
+
 	render() {
+
+		console.log("render", this);
 
 		return (
 			<div className="container">
@@ -14,11 +26,15 @@ class App extends Component {
 				<div className="row">
 
 					<div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-						<Queue />
+						<Queue
+							user={this.props.user}
+						/>
 					</div>
 
 					<div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-						<Enqueue />
+						<Enqueue
+							user={this.props.user}
+						/>
 					</div>
 				</div>
 
@@ -27,4 +43,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default Main;

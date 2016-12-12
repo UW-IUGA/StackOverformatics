@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app/app';
+import App from './app';
+import Main from './main';
+import Login from './login';
 import './index.scss';
+
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import firebase from 'firebase';
 
@@ -14,12 +18,12 @@ var config = {
 };
 firebase.initializeApp(config);
 
-firebase.auth().signInAnonymously().catch(function(error) {
-  console.error(error);
-});
-
-
 ReactDOM.render(
-	<App />,
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      <IndexRoute component={Main}/>
+      <Route path="login" component={Login}/>
+    </Route>
+  </Router>,
 	document.getElementById('mainReactApp')
 );

@@ -1,6 +1,12 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "queue": {
+      // "$queuer": {
+      //   ".read": "$queuer.uid === auth.uid",
+      //   ".write": "$queuer.uid === auth.uid"
+      // }
+    }
   }
 }
