@@ -1,5 +1,7 @@
 # StackOverformatics
 
+This was a project for managing a queue of students during a coding and homework tutoring session. Its been deprecated for a while and is now archived.
+
 ## Development
 ```bash
 git clone https://github.com/UW-IUGA/StackOverformatics.git
